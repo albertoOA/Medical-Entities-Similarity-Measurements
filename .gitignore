@@ -101,4 +101,4 @@ ENV/
 .mypy_cache/
 
 # hidden files
-#._*
+._*
