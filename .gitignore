@@ -102,3 +102,10 @@ ENV/
 
 # hidden files
 ._*
+
+# large files
+dice_sim_matrix_ECFP.npy
+dice_sim_matrix_MACCS.npy
+tanimoto_sim_matrix_ECFP.npy
+tanimoto_sim_matrix_MACCS.npy
+drug_atc_dict.pkl
