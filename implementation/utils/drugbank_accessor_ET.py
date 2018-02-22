@@ -204,27 +204,6 @@ def cosine(vector1, vector2):
     """
     return float(np.dot(vector1,vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2)))
 
-def intersection_index(list_a, list_b):
-    """
-    Returns two lists containing the index of the elements in list_a found in list_b
-    and the index of elements of list_b contained in list_a
-
-    :param : two lists
-    :rtype : object
-    """
-    int_index_ab = []
-    int_index_ba = []
-    for i in range(0, len(list_a)):
-        j = 0
-        found = False
-        while j < len(list_b) and not found:
-            if list_a[i] == list_b[j]:
-                found = True
-                int_index_ab.append(i)
-                int_index_ba.append(j)
-            j += 1
-    return int_index_ab, int_index_ba
-
 def upper_tri_as_list(matr):
     tri_list = []
     n = matr.shape[0]
@@ -233,19 +212,3 @@ def upper_tri_as_list(matr):
         for j in range(i+1, n):
             tri_list.append(matr[i,j])
     return tri_list
-
-def label_idx(labels, nclust):
-    ret = dict()
-    for c in range(nclust):
-        l = []
-        for i in range(len(labels)):
-            if labels[i] == c:
-                l.append(i)
-        ret[c] = l
-    return ret
-
-def idx_to_id(idx, ids_dict):
-    ret = []
-    for i in idx:
-        ret.append(ids_dict[i])
-    return ret
