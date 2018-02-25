@@ -1,6 +1,7 @@
 # !/usr/bin/env python3
 import networkx as nx
 import numpy
+from math import log
 import os
 import sys
 
@@ -93,6 +94,19 @@ def calculate_weighted_dist_matrix(graph, drugids):
             graph_distance[j,i] = shortest_path
         # print(i)
     return graph_distance
+
+def leakcock_chodorow_measure(matrix):
+    for x in numpy.nditer(matrix, op_flags=['readwrite']):
+        if(x==0):
+            x[...] = 1
+        elif(x==-1):
+            x[...] = 0
+        else:
+            val = -log(x/10)
+            if numpy.isnan(val):
+                print(x)
+            x[...] = val
+    return matrix
 
 def build_ATC_graph_from_list(drugs):
     graph = nx.Graph()
