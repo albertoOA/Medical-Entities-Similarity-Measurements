@@ -1,5 +1,6 @@
 # !/usr/bin/env python3
 import scipy
+import sklearn
 
 def compute_similarity_between_pairs(drugids, sim_matrix, list_of_pairs):
     n = len(list_of_pairs)
@@ -40,7 +41,7 @@ def ground_truth_evaluation_order(computed_sim, ground_truth_sim):
             x.append(computed_sim[i][3])
             y.append(ground_truth_sim[i][3])
     
-    return scipy.stats.pearsonr(x, y)
+    return scipy.stats.kendalltau(x, y)
 
 def ground_truth_evaluation_value(computed_sim, ground_truth_sim):
     n = len(computed_sim)
@@ -53,3 +54,22 @@ def ground_truth_evaluation_value(computed_sim, ground_truth_sim):
             y.append(float(ground_truth_sim[i][2]))
     
     return scipy.stats.pearsonr(x, y)
+
+def ground_truth_evaluation_threshold(computed_sim, ground_truth_sim, threshold):
+    n = len(computed_sim)
+    x = list()
+    y = list()
+    
+    for i in range(0, n):
+        if not computed_sim[i][2] == -1:
+            if computed_sim[i][2] < threshold:
+                x.append(0)
+            else:
+                x.append(1)
+
+            if float(ground_truth_sim[i][2]) < threshold:
+                y.append(0)
+            else:
+                y.append(1)
+    
+    return sklearn.metrics.accuracy_score(y, x), sklearn.metrics.recall_score(y, x)
