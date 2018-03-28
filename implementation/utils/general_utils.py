@@ -5,6 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from collections import Counter
 
 def read_zip_file(filepath, filename):
     zfile = zipfile.ZipFile(filepath)
@@ -105,3 +106,17 @@ def save_similarity_matrix_ordered(sim, clusters_idx_ordered, path, filename):
     plt.colorbar().set_label('Similarity')
     plt.title(filename)
     plt.savefig(path+filename+'.png')
+
+def save_histogram(data, path, filename):
+    counts = Counter(data)
+    common = counts.most_common()
+    labels = [item[0] for item in common]
+    number = [item[1] for item in common]
+    nbars = len(common)
+
+    plt.bar(numpy.arange(nbars), number, tick_label=labels)
+    plt.title(filename)
+    plt.xlabel('ATC Code (first level)')
+    plt.ylabel('Ocurrences')
+    plt.savefig(path+filename+'.png')
+    plt.show()
